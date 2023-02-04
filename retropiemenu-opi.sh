@@ -142,6 +142,9 @@ function configure_retropiemenu-opi()
                 ! isPlatform "sun50i-h616" && continue
 				;;
             armbianconfig|opiwifi)
+                ! isPlatform "sun50i-h6" && continue
+                ;;
+            armbianconfig|opiwifi)
                 ! isPlatform "sun8i-h3" && continue
                 ;;
             wifi)
