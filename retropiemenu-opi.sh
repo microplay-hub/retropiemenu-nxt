@@ -43,7 +43,7 @@ function install_retropiemenu-opi() {
 	
     cd "$md_inst"
 	
-	cp -r "retropiemenu-opi.sh" "$rpmsetup/retropiemenu-opi.sh"
+#	cp -r "retropiemenu-opi.sh" "$rpmsetup/retropiemenu-opi.sh"
     chown -R $user:$user "$rpmsetup/retropiemenu-opi.sh"
 	chmod 755 "$rpmsetup/retropiemenu-opi.sh"
 	rm -r "retropiemenu-opi.sh"
