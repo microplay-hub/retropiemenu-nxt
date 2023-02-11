@@ -54,7 +54,7 @@ function configure_retropiemenu-opi()
 {
     [[ "$md_mode" == "remove" ]] && return
 
-    local rpdir="$home/RetroPie/retropiemenu"
+    local rpdir="$home/RetroPie/retropiemenu-opi"
     mkdir -p "$rpdir"
     cp -Rv "$md_inst/icons_modern" "$rpdir/icons"
     chown -R $user:$user "$rpdir"
@@ -154,7 +154,7 @@ function configure_retropiemenu-opi()
         file="${files[i]}"
         name="${names[i]}"
         desc="${descs[i]}"
-        image="$home/RetroPie/retropiemenu/icons/${files[i]}.png"
+        image="$home/RetroPie/retropiemenu-opi/icons/${files[i]}.png"
 
         touch "$rpdir/$file.rp"
 
@@ -166,7 +166,7 @@ function configure_retropiemenu-opi()
 }
 
 function remove_retropiemenu-opi() {
-    rm -rf "$home/RetroPie/retropiemenu"
+    rm -rf "$home/RetroPie/retropiemenu-opi"
     rm -rf "$home/.emulationstation/gamelists/retropie"
 	rm -rf "$md_inst"
     delSystem retropie
@@ -221,7 +221,7 @@ function launch_retropiemenu-opi() {
             fi
             ;;
         *.sh)
-            cd "$home/RetroPie/retropiemenu"
+            cd "$home/RetroPie/retropiemenu-opi"
             sudo -u "$user" bash "$command"
             ;;
     esac
