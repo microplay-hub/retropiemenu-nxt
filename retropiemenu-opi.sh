@@ -126,7 +126,7 @@ function configure_retropiemenu-opi()
         'Connect to or disconnect from a WiFi network and configure WiFi settings.'
     )
 
-    setESSystem "RetroPie" "retropie" "$rpdir" ".rp .sh" "sudo $scriptdir/retropie_packages.sh retropiemenu launch %ROM% </dev/tty >/dev/tty" "" "retropie"
+    setESSystem "RetroPie" "retropie" "$rpdir" ".rp .sh" "sudo $scriptdir/retropie_packages.sh retropiemenu-opi launch %ROM% </dev/tty >/dev/tty" "" "retropie"
 
     local file
     local name
