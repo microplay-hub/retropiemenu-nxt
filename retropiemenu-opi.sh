@@ -114,7 +114,7 @@ function configure_retropiemenu-opi()
         'Basic ASCII file manager for Linux allowing you to browse, copy, delete, and move files.'
         'Change user password, boot options, internationalization, camera, add your Pi to Rastrack, overclock, overscan, memory split, SSH and more.'
         'Change user password, boot options, internationalization, camera, overclock, overscan, memory split, SSH and more.'
-        'Change user password, boot options, internationalization, camera, overclock, overscan, memory split, SSH and more.'
+        'Armbian Change user password, boot options, internationalization, camera, overclock, overscan, memory split, SSH and more.'
         'Launches the RetroArch GUI so you can change RetroArch options. Note: Changes will not be saved unless you have enabled the "Save Configuration On Exit" option.'
         'Set up RetroArch Netplay options, choose host or client, port, host IP, delay frames, and your nickname.'
         'Install RetroPie from binary or source, install experimental packages, additional drivers, edit Samba shares, custom scraper, as well as other RetroPie-related configurations.'
@@ -227,4 +227,42 @@ function launch_retropiemenu-opi() {
     esac
     joy2keyStop
     clear
+}
+function gui_retropiemenu-opi() {
+
+    while true; do
+		
+        local options=(	
+            1 "Add armbian-config to Retropiemenu"
+            2 "Add orangepi-config to Retropiemenu"
+            3 "Add raspi-config to Retropiemenu"
+            4 "Add Orangepi-WiFi to Retropiemenu"
+        )
+        local cmd=(dialog --default-item "$default" --backtitle "$__backtitle" --menu "Choose an option" 22 76 16)
+        local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+        default="$choice"
+        [[ -z "$choice" ]] && break
+        case "$choice" in
+            1)
+		touch "$datadir/retropiemenu-opi/armbianconfig.rp"
+		chown "$datadir/retropiemenu-opi/armbianconfig.rp"
+                printMsgs "dialog" "armbianconfig added"
+                ;;
+            2)
+		touch "$datadir/retropiemenu-opi/orangepiconfig.rp"
+		chown "$datadir/retropiemenu-opi/orangepiconfig.rp"
+                printMsgs "dialog" "orangepiconfig added"
+                ;;
+            3)
+		touch "$datadir/retropiemenu-opi/raspiconfig.rp"
+		chown "$datadir/retropiemenu-opi/raspiconfig.rp"
+                printMsgs "dialog" "raspiconfig added"
+                ;;
+            4)
+		touch "$datadir/retropiemenu-opi/opiwifi.rp"
+		chown "$datadir/retropiemenu-opi/opiwifi.rp"
+                printMsgs "dialog" "OnBoard WiFi for OrangePi added."
+                ;;
+        esac
+    done
 }
