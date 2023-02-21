@@ -10,6 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
+# retropiemenu for OrangePi v1.2 - 2023-02-20
 
 rp_module_id="retropiemenu-opi"
 rp_module_desc="RetroPie configuration menu for EmulationStation"
@@ -80,6 +81,7 @@ function configure_retropiemenu-opi()
         'log'
         'showip'
         'splashscreen'
+        'splashscreen-opi'
         'opiwifi'
         'wifi'
     )
@@ -101,6 +103,7 @@ function configure_retropiemenu-opi()
         'Run Command Logs'
         'Show IP'
         'Splash Screens'
+        'Splash Screens OPI'
         'On Board WiFi'
         'WiFi'
     )
@@ -122,7 +125,8 @@ function configure_retropiemenu-opi()
         'Show last Runcommand Logfile'
         'Displays your current IP address, as well as other information provided by the command "ip addr show."'
         'Enable or disable the splashscreen on RetroPie boot. Choose a splashscreen, download new splashscreens, and return splashscreen to default.'
-        'Connect to or disconnect from a WiFi network and configure WiFi settings.'
+        'Enable or disable the splashscreen on RetroPie boot for OrangePi. Choose a splashscreen, download new splashscreens, and return splashscreen to default.'
+        'Connect to or disconnect from a WiFi network and configure OnBoard WiFi settings.'
         'Connect to or disconnect from a WiFi network and configure WiFi settings.'
     )
 
@@ -138,13 +142,13 @@ function configure_retropiemenu-opi()
             audiosettings|raspiconfig|splashscreen)
                 ! isPlatform "rpi" && continue
 				;;
-            orangepiconfig|opiwifi)
+            orangepiconfig|opiwifi|splashscreen-opi)
                 ! isPlatform "sun50i-h616" && continue
 				;;
-            armbianconfig|opiwifi)
+            armbianconfig|opiwifi|splashscreen-opi)
                 ! isPlatform "sun50i-h6" && continue
                 ;;
-            armbianconfig|opiwifi)
+            armbianconfig|opiwifi|splashscreen-opi)
                 ! isPlatform "sun8i-h3" && continue
                 ;;
             wifi)
