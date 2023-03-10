@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# retropiemenu for OrangePi v1.3 - 2023-03-10
+# retropiemenu for OrangePi v1.31 - 2023-03-10
 
 rp_module_id="retropiemenu-opi"
 rp_module_desc="RetroPie configuration menu for EmulationStation"
@@ -267,6 +267,8 @@ function gui_retropiemenu-opi() {
             2 "Add orangepi-config to Retropiemenu"
             3 "Add raspi-config to Retropiemenu"
             4 "Add Orangepi-WiFi to Retropiemenu"
+			5 "Add Raspberry-Pi-WiFi to Retropiemenu"
+			6 "Add Raspberry-Audiosettings to Retropiemenu"
         )
         local cmd=(dialog --default-item "$default" --backtitle "$__backtitle" --menu "Choose an option" 22 76 16)
         local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -292,6 +294,16 @@ function gui_retropiemenu-opi() {
 		touch "$datadir/retropiemenu-opi/opiwifi.rp"
 		chown "$datadir/retropiemenu-opi/opiwifi.rp"
                 printMsgs "dialog" "OnBoard WiFi for OrangePi added."
+                ;;
+            5)
+		touch "$datadir/retropiemenu-opi/wifi.rp"
+		chown "$datadir/retropiemenu-opi/wifi.rp"
+                printMsgs "dialog" "Raspberry-Pi-WiFi added."
+                ;;
+            6)
+		touch "$datadir/retropiemenu-opi/audiosettings.rp"
+		chown "$datadir/retropiemenu-opi/audiosettings.rp"
+                printMsgs "dialog" "Raspberry-Pi Audiosettings added."
                 ;;
         esac
     done
