@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# retropiemenu for OrangePi v1.2 - 2023-02-20
+# retropiemenu for OrangePi v1.3 - 2023-03-10
 
 rp_module_id="retropiemenu-opi"
 rp_module_desc="RetroPie configuration menu for EmulationStation"
@@ -138,22 +138,6 @@ function configure_retropiemenu-opi()
     local image
     local i
     for i in "${!files[@]}"; do
-        case "${files[i]}" in
-            audiosettings|raspiconfig|splashscreen)
-                ! isPlatform "rpi" && continue
-				;;
-            orangepiconfig|opiwifi|splashscreen-opi)
-                ! isPlatform "sun50i-h616" && continue
-				;;
-            armbianconfig|opiwifi|splashscreen-opi)
-                ! isPlatform "sun50i-h6" && continue
-                ;;
-            armbianconfig|opiwifi|splashscreen-opi)
-                ! isPlatform "sun8i-h3" && continue
-                ;;
-            wifi)
-                [[ "$__os_id" != "Raspbian" ]] && continue
-        esac
 		
         file="${files[i]}"
         name="${names[i]}"
@@ -167,7 +151,49 @@ function configure_retropiemenu-opi()
             "$function" "retropie" "RetroPie" "$file.rp" "$name" "$desc" "$image"
         done
     done
+	platform_retropiemenu-opi
 }
+
+
+function platform_retropiemenu-opi() {
+
+    if isPlatform "sun50i-h616"; then
+		local rpdir="$datadir/retropiemenu-opi"
+		rm -r "$rpdir/wifi.rp"
+		rm -r "$rpdir/raspiconfig.rp"
+		rm -r "$rpdir/splashscreen.rp"
+		rm -r "$rpdir/audiosettings.rp"
+		rm -r "$rpdir/armbianconfig.rp"
+    elif isPlatform "sun50i-h6"; then
+		local rpdir="$datadir/retropiemenu-opi"
+		rm -r "$rpdir/wifi.rp"
+		rm -r "$rpdir/raspiconfig.rp"
+		rm -r "$rpdir/splashscreen.rp"
+		rm -r "$rpdir/audiosettings.rp"
+		rm -r "$rpdir/armbianconfig.rp"
+    elif isPlatform "sun8i-h3"; then
+		local rpdir="$datadir/retropiemenu-opi"
+		rm -r "$rpdir/wifi.rp"
+		rm -r "$rpdir/raspiconfig.rp"
+		rm -r "$rpdir/splashscreen.rp"
+		rm -r "$rpdir/audiosettings.rp"
+		rm -r "$rpdir/orangepiconfig.rp"
+    elif isPlatform "armv7-mali"; then
+		local rpdir="$datadir/retropiemenu-opi"
+		rm -r "$rpdir/wifi.rp"
+		rm -r "$rpdir/raspiconfig.rp"
+		rm -r "$rpdir/splashscreen.rp"
+		rm -r "$rpdir/audiosettings.rp"
+		rm -r "$rpdir/orangepiconfig.rp"
+	elif isPlatform "rpi"; then
+		local rpdir="$datadir/retropiemenu-opi"
+		rm -r "$rpdir/opiwifi.rp"
+		rm -r "$rpdir/splashscreen-opi.rp"
+		rm -r "$rpdir/armbianconfig.rp"
+		rm -r "$rpdir/orangepiconfig.rp"
+    fi
+}
+	
 
 function remove_retropiemenu-opi() {
     rm -rf "$home/RetroPie/retropiemenu-opi"
