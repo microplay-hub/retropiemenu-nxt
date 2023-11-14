@@ -10,15 +10,15 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# retropiemenu for OrangePi v1.31 - 2023-03-10
+# retropiemenu for RaspberryPi, OrangePi v1.4 - 2023-11-14
 
-rp_module_id="retropiemenu-opi"
+rp_module_id="retropiemenu-nxt"
 rp_module_desc="RetroPie configuration menu for EmulationStation"
-rp_module_repo="git https://github.com/microplay-hub/retropiemenu-opi.git master"
+rp_module_repo="git https://github.com/microplay-hub/retropiemenu-nxt.git master"
 rp_module_section="core"
-rp_module_flags="noinstclean !rpi"
+rp_module_flags="noinstclean"
 
-function _update_hook_retropiemenu-opi() {
+function _update_hook_retropiemenu-nxt() {
     # to show as installed when upgrading to retropie-setup 4.x
     if ! rp_isInstalled "$md_id" && [[ -f "$home/.emulationstation/gamelists/retropie/gamelist.xml" ]]; then
         mkdir -p "$md_inst"
@@ -27,35 +27,39 @@ function _update_hook_retropiemenu-opi() {
     fi
 }
 
-function depends_retropiemenu-opi() {
+function depends_retropiemenu-nxt() {
     local depends=(cmake)
      getDepends "${depends[@]}"
 }
 
-function sources_retropiemenu-opi() {
+function _update_hook_retropiemenu-nxt() {
+    renameModule "retropiemenu-opi" "retropiemenu-nxt"
+}
+
+function sources_retropiemenu-nxt() {
     if [[ -d "$md_inst" ]]; then
         git -C "$md_inst" reset --hard  # ensure that no local changes exist
     fi
     gitPullOrClone "$md_inst"
 }
 
-function install_retropiemenu-opi() {
+function install_retropiemenu-nxt() {
     local rpmsetup="$scriptdir/scriptmodules/supplementary"
 	
     cd "$md_inst"
 	
-#	cp -r "retropiemenu-opi.sh" "$rpmsetup/retropiemenu-opi.sh"
-    chown -R $user:$user "$rpmsetup/retropiemenu-opi.sh"
-	chmod 755 "$rpmsetup/retropiemenu-opi.sh"
-	rm -r "retropiemenu-opi.sh"
+#	cp -r "retropiemenu-nxt.sh" "$rpmsetup/retropiemenu-nxt.sh"
+    chown -R $user:$user "$rpmsetup/retropiemenu-nxt.sh"
+	chmod 755 "$rpmsetup/retropiemenu-nxt.sh"
+	rm -r "retropiemenu-nxt.sh"
 	
 }
 
-function configure_retropiemenu-opi()
+function configure_retropiemenu-nxt()
 {
     [[ "$md_mode" == "remove" ]] && return
 
-    local rpdir="$home/RetroPie/retropiemenu-opi"
+    local rpdir="$home/RetroPie/retropiemenu-nxt"
     mkdir -p "$rpdir"
     cp -Rv "$md_inst/icons_modern" "$rpdir/icons"
     chown -R $user:$user "$rpdir"
@@ -130,7 +134,7 @@ function configure_retropiemenu-opi()
         'Connect to or disconnect from a WiFi network and configure WiFi settings.'
     )
 
-    setESSystem "RetroPie" "retropie" "$rpdir" ".rp .sh" "sudo $scriptdir/retropie_packages.sh retropiemenu-opi launch %ROM% </dev/tty >/dev/tty" "" "retropie"
+    setESSystem "RetroPie" "retropie" "$rpdir" ".rp .sh" "sudo $scriptdir/retropie_packages.sh retropiemenu-nxt launch %ROM% </dev/tty >/dev/tty" "" "retropie"
 
     local file
     local name
@@ -142,7 +146,7 @@ function configure_retropiemenu-opi()
         file="${files[i]}"
         name="${names[i]}"
         desc="${descs[i]}"
-        image="$home/RetroPie/retropiemenu-opi/icons/${files[i]}.png"
+        image="$home/RetroPie/retropiemenu-nxt/icons/${files[i]}.png"
 
         touch "$rpdir/$file.rp"
 
@@ -151,42 +155,42 @@ function configure_retropiemenu-opi()
             "$function" "retropie" "RetroPie" "$file.rp" "$name" "$desc" "$image"
         done
     done
-	platform_retropiemenu-opi
+	platform_retropiemenu-nxt
 }
 
 
-function platform_retropiemenu-opi() {
+function platform_retropiemenu-nxt() {
 
     if isPlatform "sun50i-h616"; then
-		local rpdir="$datadir/retropiemenu-opi"
+		local rpdir="$datadir/retropiemenu-nxt"
 		rm -r "$rpdir/wifi.rp"
 		rm -r "$rpdir/raspiconfig.rp"
 		rm -r "$rpdir/splashscreen.rp"
 		rm -r "$rpdir/audiosettings.rp"
 		rm -r "$rpdir/armbianconfig.rp"
     elif isPlatform "sun50i-h6"; then
-		local rpdir="$datadir/retropiemenu-opi"
+		local rpdir="$datadir/retropiemenu-nxt"
 		rm -r "$rpdir/wifi.rp"
 		rm -r "$rpdir/raspiconfig.rp"
 		rm -r "$rpdir/splashscreen.rp"
 		rm -r "$rpdir/audiosettings.rp"
 		rm -r "$rpdir/armbianconfig.rp"
     elif isPlatform "sun8i-h3"; then
-		local rpdir="$datadir/retropiemenu-opi"
+		local rpdir="$datadir/retropiemenu-nxt"
 		rm -r "$rpdir/wifi.rp"
 		rm -r "$rpdir/raspiconfig.rp"
 		rm -r "$rpdir/splashscreen.rp"
 		rm -r "$rpdir/audiosettings.rp"
 		rm -r "$rpdir/orangepiconfig.rp"
     elif isPlatform "armv7-mali"; then
-		local rpdir="$datadir/retropiemenu-opi"
+		local rpdir="$datadir/retropiemenu-nxt"
 		rm -r "$rpdir/wifi.rp"
 		rm -r "$rpdir/raspiconfig.rp"
 		rm -r "$rpdir/splashscreen.rp"
 		rm -r "$rpdir/audiosettings.rp"
 		rm -r "$rpdir/orangepiconfig.rp"
 	elif isPlatform "rpi"; then
-		local rpdir="$datadir/retropiemenu-opi"
+		local rpdir="$datadir/retropiemenu-nxt"
 		rm -r "$rpdir/opiwifi.rp"
 		rm -r "$rpdir/splashscreen-opi.rp"
 		rm -r "$rpdir/armbianconfig.rp"
@@ -195,14 +199,14 @@ function platform_retropiemenu-opi() {
 }
 	
 
-function remove_retropiemenu-opi() {
-    rm -rf "$home/RetroPie/retropiemenu-opi"
+function remove_retropiemenu-nxt() {
+    rm -rf "$home/RetroPie/retropiemenu-nxt"
     rm -rf "$home/.emulationstation/gamelists/retropie"
 	rm -rf "$md_inst"
     delSystem retropie
 }
 
-function launch_retropiemenu-opi() {
+function launch_retropiemenu-nxt() {
     clear
     local command="$1"
     local basename="${command##*/}"
@@ -251,14 +255,14 @@ function launch_retropiemenu-opi() {
             fi
             ;;
         *.sh)
-            cd "$home/RetroPie/retropiemenu-opi"
+            cd "$home/RetroPie/retropiemenu-nxt"
             sudo -u "$user" bash "$command"
             ;;
     esac
     joy2keyStop
     clear
 }
-function gui_retropiemenu-opi() {
+function gui_retropiemenu-nxt() {
 
     while true; do
 		
@@ -276,33 +280,33 @@ function gui_retropiemenu-opi() {
         [[ -z "$choice" ]] && break
         case "$choice" in
             1)
-		touch "$datadir/retropiemenu-opi/armbianconfig.rp"
-		chown "$datadir/retropiemenu-opi/armbianconfig.rp"
+		touch "$datadir/retropiemenu-nxt/armbianconfig.rp"
+		chown "$datadir/retropiemenu-nxt/armbianconfig.rp"
                 printMsgs "dialog" "armbianconfig added"
                 ;;
             2)
-		touch "$datadir/retropiemenu-opi/orangepiconfig.rp"
-		chown "$datadir/retropiemenu-opi/orangepiconfig.rp"
+		touch "$datadir/retropiemenu-nxt/orangepiconfig.rp"
+		chown "$datadir/retropiemenu-nxt/orangepiconfig.rp"
                 printMsgs "dialog" "orangepiconfig added"
                 ;;
             3)
-		touch "$datadir/retropiemenu-opi/raspiconfig.rp"
-		chown "$datadir/retropiemenu-opi/raspiconfig.rp"
+		touch "$datadir/retropiemenu-nxt/raspiconfig.rp"
+		chown "$datadir/retropiemenu-nxt/raspiconfig.rp"
                 printMsgs "dialog" "raspiconfig added"
                 ;;
             4)
-		touch "$datadir/retropiemenu-opi/opiwifi.rp"
-		chown "$datadir/retropiemenu-opi/opiwifi.rp"
+		touch "$datadir/retropiemenu-nxt/opiwifi.rp"
+		chown "$datadir/retropiemenu-nxt/opiwifi.rp"
                 printMsgs "dialog" "OnBoard WiFi for OrangePi added."
                 ;;
             5)
-		touch "$datadir/retropiemenu-opi/wifi.rp"
-		chown "$datadir/retropiemenu-opi/wifi.rp"
+		touch "$datadir/retropiemenu-nxt/wifi.rp"
+		chown "$datadir/retropiemenu-nxt/wifi.rp"
                 printMsgs "dialog" "Raspberry-Pi-WiFi added."
                 ;;
             6)
-		touch "$datadir/retropiemenu-opi/audiosettings.rp"
-		chown "$datadir/retropiemenu-opi/audiosettings.rp"
+		touch "$datadir/retropiemenu-nxt/audiosettings.rp"
+		chown "$datadir/retropiemenu-nxt/audiosettings.rp"
                 printMsgs "dialog" "Raspberry-Pi Audiosettings added."
                 ;;
         esac
