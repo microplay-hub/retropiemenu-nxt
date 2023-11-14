@@ -1,4 +1,4 @@
-# RetroPie Modul - Retropiemenu-Opi (Liontek1985 Script)
+# RetroPie Modul - Retropiemenu-NXT (Liontek1985 Script)
 
 Basic-Code:	RetroPie-Modul Retropiemenu</br>
 Moded-Code:	Liontek1985</br>
